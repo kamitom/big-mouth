@@ -76,11 +76,12 @@ const static_html = `
 </html>
 `;
 
+// for test Async Await
 function forOsakaTest() {
   return 'hello...Tom.';
 }
 
-module.exports.handler = async (event, context) => {
+module.exports.handlerHello = async (event, context) => {
   
   const helloOsaka = await forOsakaTest();
   const staticHtmlFile = await readHtmlFileAsync('static/index.html', 'utf8');

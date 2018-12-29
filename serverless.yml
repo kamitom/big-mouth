@@ -57,7 +57,7 @@ provider:
 
 functions:
   get-index:
-    handler: functions/get-index.handler
+    handler: functions/get-index.handlerHello
     events:
       - http:
           path: /
