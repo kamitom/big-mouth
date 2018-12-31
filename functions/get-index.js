@@ -3,6 +3,11 @@
 const fs = require('fs');
 const { promisify } = require('util');
 const readHtmlFileAsync = promisify(fs.readFile);
+const Mustache = require('mustache');
+const http = require('superagent-promise')(require('superagent'), Promise);
+
+const restaurantsApiRoot = process.env.restaurants_api;
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const static_html = `
 <!DOCTYPE html>
@@ -78,20 +83,56 @@ const static_html = `
 
 // for test Async Await
 function forOsakaTest() {
-  return 'hello...Tom.';
+  return 'This is a very long time process...';
+}
+
+
+function getRestaurants2() {
+
+  let forTest = [
+    { 
+      name: "Fangtasia", 
+      image: "https://d2qt42rcwzspd6.cloudfront.net/manning/fangtasia.png", 
+      themes: ["true blood"] 
+    },
+    { 
+      name: "Shoney's", 
+      image: "https://d2qt42rcwzspd6.cloudfront.net/manning/shoney's.png", 
+      themes: ["cartoon", "rick and morty"] 
+    },
+  ]
+
+  return forTest;
+}
+
+async function getRestaurants() {
+
+  const res = await http.get(restaurantsApiRoot);
+  console.log('show getResFunc6:', res.body);
+
+  return (res.body);
+
 }
 
 module.exports.handlerHello = async (event, context) => {
-  
+  console.log('landing page event:', event);
+
+  // const helloOsaka = forOsakaTest(); // why without await will not get an Error?
   const helloOsaka = await forOsakaTest();
-  const staticHtmlFile = await readHtmlFileAsync('static/index.html', 'utf8');
+  let staticHtmlFile = await readHtmlFileAsync('static/index2.html', 'utf-8');
+
+  let restaurants = await getRestaurants();
+  let dayOfWeek = days[new Date().getDay()];
+  let staticHtmlFile2 = Mustache.render(staticHtmlFile, { dayOfWeek, restaurants });
   
   console.log('hiOsaka:', helloOsaka);
   console.log('static HTML:', staticHtmlFile);
+  console.log('static HTML2:', staticHtmlFile2);
+  console.log('show res:', restaurants);
 
   return {
     statusCode: 200,
-    body: staticHtmlFile,
+    body: staticHtmlFile2,
     headers: {
       'Content-Type': 'text/html; charset=UTF-8'
     }
