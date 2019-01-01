@@ -70,8 +70,8 @@ functions:
           path: /
           method: get
     environment:
-      restaurants_api: https://r5t2owiy8e.execute-api.ap-northeast-1.amazonaws.com/dev/restaurants
-      
+      restaurants_api: https://xng2illv1m.execute-api.ap-northeast-1.amazonaws.com/dev/restaurants
+
   get-restaurants:
     handler: functions/getRestaurants.handlerHello2
     events:

@@ -24,9 +24,9 @@ module.exports.handlerHello2 = async (event, context) => {
     console.log('look 6:', restaurants);
   
     return {
-      statusCode: 200,
-      body: JSON.stringify(restaurants, null, 2),
+        statusCode: 200,
+        body: JSON.stringify(restaurants, null, 2),
     };
   
-  };
+};
   

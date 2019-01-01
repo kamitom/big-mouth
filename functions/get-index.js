@@ -83,61 +83,65 @@ const static_html = `
 
 // for test Async Await
 function forOsakaTest() {
-  return 'This is a very long time process...';
+    return 'hello OSAKA!';
 }
 
 
 function getRestaurants2() {
 
-  let forTest = [
-    { 
-      name: "Fangtasia", 
-      image: "https://d2qt42rcwzspd6.cloudfront.net/manning/fangtasia.png", 
-      themes: ["true blood"] 
-    },
-    { 
-      name: "Shoney's", 
-      image: "https://d2qt42rcwzspd6.cloudfront.net/manning/shoney's.png", 
-      themes: ["cartoon", "rick and morty"] 
-    },
-  ]
+    let forTest = [
+        { 
+            name: 'Fangtasia', 
+            image: 'https://d2qt42rcwzspd6.cloudfront.net/manning/fangtasia.png', 
+            themes: ['true blood'] 
+        },
+        { 
+            name: 'Shoney\'s', 
+            image: 'https://d2qt42rcwzspd6.cloudfront.net/manning/shoney\'s.png', 
+            themes: ['cartoon', 'rick and morty'] 
+        },
+    ];
 
-  return forTest;
+    return forTest;
 }
 
 async function getRestaurants() {
 
-  const res = await http.get(restaurantsApiRoot);
-  console.log('show getResFunc6:', res.body);
+    try {
+        const getResponse = await http.get(restaurantsApiRoot);
+        console.log('show getRespBody:', getResponse.body);
+        return (getResponse.body);
+    } catch (error) {
+        console.log('async await Error: ', error.message);
+    }
 
-  return (res.body);
 
 }
 
 module.exports.handlerHello = async (event, context) => {
-  console.log('landing page event:', event);
+    console.log('landing page event:', event);
 
-  // const helloOsaka = forOsakaTest(); // why without await will not get an Error?
-  const helloOsaka = await forOsakaTest();
-  let staticHtmlFile = await readHtmlFileAsync('static/index2.html', 'utf-8');
+    const helloOsaka = forOsakaTest(); // why without await will not get an Error?
+    // const helloOsaka = await forOsakaTest();
+    let staticHtmlFile = await readHtmlFileAsync('static/index2.html', 'utf-8');
 
-  let restaurants = await getRestaurants();
-  let dayOfWeek = days[new Date().getDay()];
-  let staticHtmlFile2 = Mustache.render(staticHtmlFile, { dayOfWeek, restaurants });
+    let restaurants = await getRestaurants();
+    let dayOfWeek = days[new Date().getDay()];
+    let staticHtmlFile2 = Mustache.render(staticHtmlFile, { dayOfWeek, restaurants });
   
-  console.log('hiOsaka:', helloOsaka);
-  console.log('static HTML:', staticHtmlFile);
-  console.log('static HTML2:', staticHtmlFile2);
-  console.log('show res:', restaurants);
+    console.log('hiOsaka:', helloOsaka);
+    console.log('static HTML:', staticHtmlFile);
+    console.log('static HTML2:', staticHtmlFile2);
+    console.log('show restaurants array:', restaurants);
 
-  return {
-    statusCode: 200,
-    body: staticHtmlFile2,
-    headers: {
-      'Content-Type': 'text/html; charset=UTF-8'
-    }
-  };
+    return {
+        statusCode: 200,
+        body: staticHtmlFile2,
+        headers: {
+            'Content-Type': 'text/html; charset=UTF-8'
+        }
+    };
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+    // Use this code if you don't use the http event with the LAMBDA-PROXY integration
+    // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
