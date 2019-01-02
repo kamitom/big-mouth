@@ -4,7 +4,7 @@ const AWS = require('aws-sdk');
 AWS.config.region = 'ap-northeast-1';
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let restaurants = [
+let restaurants2 = [
   { 
     name: "Fangtasia", 
     image: "https://d2qt42rcwzspd6.cloudfront.net/manning/fangtasia.png", 
@@ -45,9 +45,25 @@ let restaurants = [
     image: "https://d2qt42rcwzspd6.cloudfront.net/manning/don%20cuco.png", 
     themes: ["cartoon", "rick and morty"] 
   },
+  { 
+    name: "Don Cuco2", 
+    image: "https://d2qt42rcwzspd6.cloudfront.net/manning/don%20cuco.png", 
+    themes: ["cartoon", "rick and morty"] 
+  },
+  { 
+    name: "Don Cuco3", 
+    image: "https://d2qt42rcwzspd6.cloudfront.net/manning/don%20cuco.png", 
+    themes: ["cartoon", "rick and morty"] ,
+    id: 100
+  },
+  { 
+    name: "Fancy Eats2", 
+    image: "https://d2qt42rcwzspd6.cloudfront.net/manning/fancy+eats.png", 
+    themes: ["cartoon", "rick and morty"] 
+  },
 ];
 
-let putReqs = restaurants.map(x => ({
+let putReqs = restaurants2.map(x => ({
   PutRequest: {
     Item: x
   }

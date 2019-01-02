@@ -123,7 +123,7 @@ module.exports.handlerHello = async (event, context) => {
 
     const helloOsaka = forOsakaTest(); // why without await will not get an Error?
     // const helloOsaka = await forOsakaTest();
-    let staticHtmlFile = await readHtmlFileAsync('static/index2.html', 'utf-8');
+    let staticHtmlFile = await readHtmlFileAsync('static/index3.html', 'utf-8');
 
     let restaurants = await getRestaurants();
     let dayOfWeek = days[new Date().getDay()];

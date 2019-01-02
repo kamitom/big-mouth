@@ -14,5 +14,8 @@
     "serverless-pseudo-parameters": "^2.4.0",
     "superagent": "^4.1.0",
     "superagent-promise": "^1.1.0"
+  },
+  "devDependencies": {
+    "serverless": "^1.35.1"
   }
 }

@@ -81,6 +81,15 @@ functions:
     environment:
       restaurants_table: restaurants
 
+  search-restaurants:
+    handler: functions/searchRestaurants.handlerHello3
+    events:
+      - http:
+          path: /restaurants/search
+          method: post
+    environment:
+      restaurants_table: restaurants
+
 resources:
  Resources:
    restaurantsTable:
